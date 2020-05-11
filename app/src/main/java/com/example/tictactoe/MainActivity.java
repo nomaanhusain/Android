@@ -3,6 +3,7 @@ package com.example.tictactoe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (!((Button) v).getText().toString().equals("")){
             return;
+        }
+        if (player1turn){
+            textViewplayer1.setTextColor(Color.parseColor("#C05030"));
+            textViewplayer2.setTextColor(Color.parseColor("#000000"));
+        }
+        else{
+            textViewplayer2.setTextColor(Color.parseColor("#C05030"));
+            textViewplayer1.setTextColor(Color.parseColor("#000000"));
         }
         if (player1turn){
             ((Button) v).setText("X");
