@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button[][] buttons=new Button[3][3];
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            reserGame();
             }
         });
 
@@ -58,14 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else {
                 player2wins();
-            }
+            }}
             else if(roundCount == 9){
                 draw();
             }else {
                 player1turn=!player1turn;
             }
         }
-    }
     private boolean checkWin(){
         String[][] field=new String[3][3];
         for(int i=0;i<3;i++){
@@ -99,12 +99,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void player1Wins(){
-
+        player1points++;
+        Toast.makeText(this,"Player 1 Wins",Toast.LENGTH_SHORT).show();
+        updatePointsText();
+        resetBoard();
     }
     private void player2wins(){
-
+        player2points++;
+        Toast.makeText(this,"Player 2 Wins",Toast.LENGTH_SHORT).show();
+        updatePointsText();
+        resetBoard();
     }
     private void draw(){
-
+        Toast.makeText(this,"Draw",Toast.LENGTH_SHORT).show();
+        resetBoard();
+    }
+    private void updatePointsText(){
+        textViewplayer1.setText("Player 1 -->"+player1points);
+        textViewplayer2.setText("Player 2 -->"+player2points);
+    }
+    private void resetBoard(){
+        for (int i=0;i<3;i++){
+            for (int j=0;j<3;j++){
+                buttons[i][j].setText("");
+            }
+        }
+        roundCount=0;
+        player1turn=true;
+    }
+    private void reserGame(){
+        player1points=0;
+        player2points=0;
+        updatePointsText();
+        resetBoard();
     }
 }
